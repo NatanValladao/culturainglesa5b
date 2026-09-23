@@ -20,8 +20,8 @@ export default function App() {
 
   // Classroom league points
   const [leagueScores, setLeagueScores] = useState({
-    leagueA: 40,
-    leagueB: 45
+    leagueA: 0,
+    leagueB: 0
   });
 
   // Countdown timer effect
