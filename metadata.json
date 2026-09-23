@@ -1,0 +1,6 @@
+{
+  "name": "Teen Legacy • Track 5B: Would You Mind Helping Me?",
+  "description": "Tactile vintage editorial EFL interactive classroom board webapp for Track 5B. Practice future arrangements, polite requests, and cultural festival coordination.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
