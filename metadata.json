@@ -1,6 +1,6 @@
 {
-  "name": "Teen Legacy • Track 5B: Would You Mind Helping Me?",
-  "description": "Tactile vintage editorial EFL interactive classroom board webapp for Track 5B. Practice future arrangements, polite requests, and cultural festival coordination.",
+  "name": "Teen Legacy • Track 7A: I’ll register for the festival now!",
+  "description": "Interactive classroom e-board webapp for Teen Legacy 1, Track 7A (Journey 2: Express Yourself). Features Noughts & Crosses festival troubleshooter, Youth Arts Festival website explorer, instant decisions ('will') vs plans language lab, dialogue role-play, The Arts Festival Challenge game, and Brazilian street art SEL reflection.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

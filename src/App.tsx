@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { ActiveTab } from './types';
 import { Header } from './components/Header';
 import { TimerModal } from './components/TimerModal';
-import { CulturalCardsSection } from './components/CulturalCardsSection';
-import { GrammarSection } from './components/GrammarSection';
-import { ListeningSection } from './components/ListeningSection';
-import { RolePlaySection } from './components/RolePlaySection';
+import { NoughtsCrossesSection } from './components/NoughtsCrossesSection';
+import { FestivalHubSection } from './components/FestivalHubSection';
+import { LanguageLabSection } from './components/LanguageLabSection';
+import { DialogueSection } from './components/DialogueSection';
+import { FestivalChallengeSection } from './components/FestivalChallengeSection';
 import { SelSection } from './components/SelSection';
 import { sound } from './utils/audio';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('cards');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('noughts');
   const [isBoardMode, setIsBoardMode] = useState<boolean>(false);
 
   // Classroom timer state
@@ -55,7 +56,7 @@ export default function App() {
         isBoardMode ? 'text-lg' : 'text-base'
       }`}
     >
-      {/* Clean Top Bar Navigation */}
+      {/* Top Bar Navigation */}
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -68,48 +69,55 @@ export default function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        {/* Simple Masthead Banner */}
+        {/* Masthead Banner */}
         <section className="mb-8 pb-6 border-b border-slate-200">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
               <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider block mb-1">
-                Teen Legacy 1 · Track 5B
+                Teen Legacy 1 · Journey 2: Express Yourself · Track 7A
               </span>
               <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                Would you mind helping me?
+                I’ll register for the festival now!
               </h1>
             </div>
-            <div className="text-sm text-slate-500 font-medium">
-              Event coordination, future arrangements & polite requests
+            <div className="text-sm text-slate-500 font-medium max-w-md text-left sm:text-right">
+              Youth Arts Festival, instant decisions on the spot (<span className="text-blue-600 font-semibold">will</span>), impressions & polite requests
             </div>
           </div>
         </section>
 
         {/* Section View */}
         <div className="transition-all duration-150">
-          {activeTab === 'cards' && (
-            <CulturalCardsSection
+          {activeTab === 'noughts' && (
+            <NoughtsCrossesSection
+              isBoardMode={isBoardMode}
+              addLeagueScore={addLeagueScore}
+            />
+          )}
+
+          {activeTab === 'website' && (
+            <FestivalHubSection
               isBoardMode={isBoardMode}
               addLeagueScore={addLeagueScore}
             />
           )}
 
           {activeTab === 'grammar' && (
-            <GrammarSection
+            <LanguageLabSection
               isBoardMode={isBoardMode}
               addLeagueScore={addLeagueScore}
             />
           )}
 
-          {activeTab === 'listening' && (
-            <ListeningSection
+          {activeTab === 'dialogue' && (
+            <DialogueSection
               isBoardMode={isBoardMode}
               addLeagueScore={addLeagueScore}
             />
           )}
 
-          {activeTab === 'roleplay' && (
-            <RolePlaySection
+          {activeTab === 'challenge' && (
+            <FestivalChallengeSection
               isBoardMode={isBoardMode}
               addLeagueScore={addLeagueScore}
             />
@@ -121,10 +129,10 @@ export default function App() {
         </div>
       </main>
 
-      {/* Simple Footer */}
+      {/* Footer */}
       <footer className="mt-16 border-t border-slate-200 bg-white text-slate-500 text-xs py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <span className="font-semibold text-slate-700">Track 5B Interactive Classroom Webapp</span>
+          <span className="font-semibold text-slate-700">Track 7A Interactive Classroom Board</span>
           <span>Macmillan Education & Cultura Inglesa</span>
         </div>
       </footer>

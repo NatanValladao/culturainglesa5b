@@ -1,67 +1,68 @@
-export type ActiveTab = 'cards' | 'grammar' | 'listening' | 'roleplay' | 'sel';
+export type ActiveTab = 'noughts' | 'website' | 'grammar' | 'dialogue' | 'challenge' | 'sel';
 
-export interface EventCard {
+export interface NoughtsCell {
   id: string;
-  title: string;
-  category: string;
-  description: string;
-  time: string;
+  code: string; // 'a' through 'i'
+  problem: string;
   location: string;
-  sampleInvite: string;
-  sampleHelpRequest: string;
-  possibleReplies: string[];
+  suggestedSolution: string;
+  claimedBy: 'X' | 'O' | null;
+  claimedByTeam: 'leagueA' | 'leagueB' | null;
 }
 
-export interface GrammarItem {
-  id: string;
-  context: string;
-  sentencePrompt: string;
-  subject: string;
-  baseVerb: string;
-  correctAnswer: string;
-  timeClue: string;
-  explanation: string;
-}
-
-export interface DialogueLine {
-  id: number;
-  speaker: 'Alex' | 'Emily' | 'Jake';
-  text: string;
-  isPoliteRequest?: boolean;
-  requestOrder?: number;
+export interface FestivalScheduleItem {
+  time: string;
+  title: string;
+  venue: string;
+  type: 'performance' | 'workshop' | 'exhibition' | 'competition';
+  description: string;
+  highlight: string;
 }
 
 export interface TrueFalseQuestion {
   id: string;
   statement: string;
   isTrue: boolean;
-  justification: string;
   evidenceQuote: string;
+  justification: string;
 }
 
-export interface PoliteRequestOrderingItem {
+export interface GrammarItem {
   id: string;
-  originalOrder: number;
-  speaker: string;
-  quote: string;
-  structure: 'Could you help me with...' | 'Can you give me a hand with...' | 'Would you mind helping me with...' | 'Can you help me out with...';
+  prompt: string;
+  category: 'instant_decision' | 'plan' | 'opinion' | 'polite_request';
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+  ruleTag: string;
 }
 
-export interface RolePlayScenario {
+export interface DialogueLine {
+  id: number;
+  speaker: 'Leo' | 'Camila';
+  text: string;
+  isTargetSentence?: boolean;
+  targetTag?: 'Instant Decision' | 'Opinion' | 'Polite Request' | 'Plan';
+}
+
+export interface ChallengeScenario {
   id: string;
   title: string;
-  context: string;
-  targetTask: string;
-  suggestedPrompt: string;
-  suggestedResponse: string;
-  difficulty: 'Bronze' | 'Silver' | 'Gold';
+  situation: string;
+  requiredFunction: 'Instant Decision (will)' | 'Give an Opinion (looks / sounds / seems)' | 'Polite Request (Could you / Would you mind)';
+  modelPrompt: string;
+  exampleAnswers: string[];
+  grammarChunk: string;
+  badgeColor: string;
 }
 
-export interface SelStrategy {
+export interface StreetArtistProfile {
   id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  actionableStep: string;
+  name: string;
+  city: string;
+  style: string;
+  signatureTheme: string;
+  famousArtwork: string;
   quote: string;
+  reflectionQuestion: string;
 }

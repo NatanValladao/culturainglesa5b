@@ -1,452 +1,499 @@
 import {
-  EventCard,
+  NoughtsCell,
+  FestivalScheduleItem,
+  TrueFalseQuestion,
   GrammarItem,
   DialogueLine,
-  TrueFalseQuestion,
-  PoliteRequestOrderingItem,
-  RolePlayScenario,
-  SelStrategy
+  ChallengeScenario,
+  StreetArtistProfile
 } from '../types';
 
 export const LESSON_META = {
   journey: 'Journey 2 • Express Yourself',
-  track: 'Track 5B',
-  title: 'Would you mind helping me?',
-  subheading: 'Coordinating a Cultural Event with Tact & Teamwork',
+  track: 'Track 7A',
+  title: 'I’ll register for the festival now!',
+  subheading: 'Youth Arts Festival, Instant Decisions (will), Opinions & Polite Requests',
   schoolProgram: 'Teen Legacy 1 • Cultura Inglesa & Macmillan Education',
   cefrLevel: 'A2+ / B1 Pre-Intermediate EFL',
-  targetGrammar: 'Present Continuous for Fixed Future Arrangements',
-  targetFunction: 'Polite Requests, Offers of Assistance & Agreeing to Help'
+  targetGrammar: 'Future with "will" (spontaneous decisions on the spot) vs "be going to" (plans)',
+  targetFunctions: 'Making instant decisions, expressing opinions (looks, sounds, seems to be), and polite requests (Could you...? / Would you mind...?)'
 };
 
-export const CULTURAL_EVENT_CARDS: EventCard[] = [
+// Warmer: Noughts & Crosses (Tic-Tac-Toe) - Activity 1
+export const NOUGHTS_AND_CROSSES_PROBLEMS: NoughtsCell[] = [
   {
-    id: 'photo_exhibit',
-    title: 'Photography Exhibition',
-    category: 'Visual Arts',
-    description: 'Documentary photo display capturing daily teenage life and authentic community stories.',
-    time: 'Friday • 4:00 PM',
-    location: 'Main Hall Gallery',
-    sampleInvite: 'Would you like to join me for the Photography Exhibition?',
-    sampleHelpRequest: 'Could you help me hang the photo frames straight?',
-    possibleReplies: [
-      'Sure! Count me in. I love photography.',
-      'No problem. I will grab the measuring tape.',
-      'Of course! What do you need me to do first?'
-    ]
+    id: 'cell_a',
+    code: 'a',
+    location: 'Main Stage',
+    problem: 'The microphone stopped working right before the opening speech.',
+    suggestedSolution: "Don't worry! We'll test the sound cable and replace the battery right now.",
+    claimedBy: null,
+    claimedByTeam: null
   },
   {
-    id: 'craft_fair',
-    title: "Artisan's Craft Fair",
-    category: 'Handmade Crafts',
-    description: 'Local student artisans showcasing ceramic bowls, woven textiles, and handmade jewelry.',
-    time: 'Saturday • 10:30 AM',
-    location: 'Courtyard Pavilions',
-    sampleInvite: 'Are you free to visit the Craft Fair on Saturday morning?',
-    sampleHelpRequest: 'Would you mind helping me arrange the ceramic display tables?',
-    possibleReplies: [
-      'Sure, I would be happy to help with that!',
-      'Absolutely! I am here to help. Where should we put the table?',
-      'No problem. Let us make sure fragile items are secure.'
-    ]
+    id: 'cell_b',
+    code: 'b',
+    location: 'Welcome Desk',
+    problem: 'We ran out of printed festival schedule flyers for incoming visitors.',
+    suggestedSolution: "I'll display a large QR code on the monitor so everyone can scan the digital map!",
+    claimedBy: null,
+    claimedByTeam: null
   },
   {
-    id: 'hiphop_show',
-    title: 'Hip-Hop & Pilolo Dance Showcase',
-    category: 'Performing Arts',
-    description: 'High-energy street dance routines featuring African Pilolo steps and student choreography.',
-    time: 'Saturday • 3:30 PM',
-    location: 'School Amphitheatre',
-    sampleInvite: 'Would you like to come watch the Pilolo dance performance?',
-    sampleHelpRequest: 'Can you give me a hand carrying the sound monitors to the stage?',
-    possibleReplies: [
-      'Count me in! That sounds energetic.',
-      'Sure, let us pick them up together so they are not too heavy.',
-      'Definitely! What time does the dance crew start rehearsing?'
-    ]
+    id: 'cell_c',
+    code: 'c',
+    location: 'Courtyard Garden',
+    problem: 'Rain suddenly started falling near the outdoor acoustic music stage.',
+    suggestedSolution: "We'll help the musicians move their instruments into the covered gallery immediately.",
+    claimedBy: null,
+    claimedByTeam: null
   },
   {
-    id: 'popup_installation',
-    title: 'Pop-Up Interactive Art Maze',
-    category: 'Contemporary Art',
-    description: 'An immersive tunnel of recycled cardboard, hanging mirrors, and reactive ambient lights.',
-    time: 'Friday • 5:30 PM',
-    location: 'Studio Room 4',
-    sampleInvite: 'Do you want to check out the new interactive art installation?',
-    sampleHelpRequest: 'Would you mind testing the color sensors with me before opening?',
-    possibleReplies: [
-      'I would love to! That appears to be really creative.',
-      'Sure! How can I help test them?',
-      'No problem. I will check the power switches.'
-    ]
+    id: 'cell_d',
+    code: 'd',
+    location: 'Mural Wall',
+    problem: 'The spray paint cans ran out during the street art graffiti workshop.',
+    suggestedSolution: "I'll run to the school art supply storage and bring five extra boxes of paint.",
+    claimedBy: null,
+    claimedByTeam: null
   },
   {
-    id: 'talent_show',
-    title: 'Acoustic Talent Show',
-    category: 'Live Music',
-    description: 'Teen singer-songwriters, acoustic guitar duos, and spoken-word poetry performances.',
-    time: 'Saturday • 6:00 PM',
-    location: 'Auditorium Stage',
-    sampleInvite: 'Would you like to come to our talent show this Saturday?',
-    sampleHelpRequest: 'Could you help me check the stage microphones and cue sheets?',
-    possibleReplies: [
-      'Absolutely! I am excited to hear everyone play.',
-      'Of course! What do you need on the soundboard?',
-      'Sure. I will check the microphone batteries right now.'
-    ]
+    id: 'cell_e',
+    code: 'e',
+    location: 'Hallway Corridor',
+    problem: 'Visitors cannot find where the Pilolo street dance showdown is taking place.',
+    suggestedSolution: "We'll put up bright directional arrows and announce the location on the loudspeaker.",
+    claimedBy: null,
+    claimedByTeam: null
   },
   {
-    id: 'food_stalls',
-    title: 'Cultural Food & Flavor Stalls',
-    category: 'Community & Cuisine',
-    description: 'Tasting booths featuring regional snacks, tropical fruit smoothies, and family recipe treats.',
-    time: 'Saturday • 11:00 AM',
-    location: 'School Garden Lawn',
-    sampleInvite: 'Are you going to the food stalls on Saturday noon?',
-    sampleHelpRequest: 'Would you mind helping me check the allergen signs for the booths?',
-    possibleReplies: [
-      'Sure! I would be glad to help with the signs.',
-      'Count me in! Everything looks and smells delicious.',
-      'No problem at all. Let us double-check each recipe card.'
-    ]
+    id: 'cell_f',
+    code: 'f',
+    location: 'Sculpture Corner',
+    problem: 'The spotlight is too dim to highlight the student ceramic sculptures.',
+    suggestedSolution: "I'll adjust the angle of the overhead lights to illuminate the display nicely.",
+    claimedBy: null,
+    claimedByTeam: null
+  },
+  {
+    id: 'cell_g',
+    code: 'g',
+    location: 'Pottery Studio',
+    problem: 'The modelling clay is drying out too quickly under the midday sun.',
+    suggestedSolution: "We'll spray water mist over the tables and pull down the canvas canopy shades.",
+    claimedBy: null,
+    claimedByTeam: null
+  },
+  {
+    id: 'cell_h',
+    code: 'h',
+    location: 'Snack Pavilion',
+    problem: 'A huge queue formed at the fresh juice stall and students are thirsty.',
+    suggestedSolution: "I'll jump behind the counter and hand out cold bottled water to speed up service!",
+    claimedBy: null,
+    claimedByTeam: null
+  },
+  {
+    id: 'cell_i',
+    code: 'i',
+    location: 'Amphitheatre Booth',
+    problem: 'The DJ laptop battery is at 4% right before the hip-hop performance.',
+    suggestedSolution: "I'll plug in the emergency extension cord and power brick right away!",
+    claimedBy: null,
+    claimedByTeam: null
   }
 ];
 
-export const GRAMMAR_EXERCISES: GrammarItem[] = [
+// Activity 2 & 3: Youth Arts Festival Website Content & Schedule
+export const FESTIVAL_WEBSITE = {
+  name: 'Youth Arts Festival 2026',
+  tagline: 'Express Yourself: Visual Arts, Urban Rhythms & Creative Workshops',
+  dates: 'Saturday & Sunday • October 18–19',
+  location: 'São Paulo Creative Arts Hub & Open-Air Amphitheatre',
+  admission: 'Free admission for all secondary school students with ID',
+  overview:
+    'Welcome to the annual Youth Arts Festival! This weekend celebration unites young Brazilian creators, musicians, and performers to share their passion. Featuring live Brazilian street art exhibitions, urban dance battles, hands-on ceramic studios, and indie music stages. Explore, connect, and discover your artistic voice!',
+  announcement:
+    '★ Early online registration is recommended for interactive workshops (graffiti & ceramics) as materials and spots are limited!',
+  schedules: [
+    {
+      time: '10:00 AM – 12:00 PM',
+      title: 'Brazilian Street Art & Giant Mural Live Paint',
+      venue: 'Urban Canvas Wall',
+      type: 'exhibition',
+      description: 'Watch student artists collaborate on a vibrant 20-meter mural inspired by Eduardo Kobra and Os Gêmeos.',
+      highlight: 'Live spray-paint demonstration with eco-friendly pigments.'
+    },
+    {
+      time: '1:00 PM – 2:30 PM',
+      title: 'Pilolo & Street Dance Masterclass & Battle',
+      venue: 'Amphitheatre Stage A',
+      type: 'performance',
+      description: 'High-energy West African Pilolo dance choreography followed by a friendly freestyle teen cipher.',
+      highlight: 'Guest DJ spinning Afrobeat and Brazilian funk instrumental fusion.'
+    },
+    {
+      time: '2:45 PM – 4:15 PM',
+      title: 'Hands-On Ceramic Sculpting & Clay Workshop',
+      venue: 'Craft Studio 2',
+      type: 'workshop',
+      description: 'Learn pinching, coiling, and surface texture techniques to design your own tactile clay talisman.',
+      highlight: 'All participants take home their fired pottery pieces.'
+    },
+    {
+      time: '4:30 PM – 6:00 PM',
+      title: 'Acoustic Bands & Spoken-Word Showcase',
+      venue: 'Sunset Courtyard',
+      type: 'performance',
+      description: 'Teen singer-songwriters and youth poets performing original acoustic compositions on identity and hope.',
+      highlight: 'Audience voting for the "Audience Choice Inspiration Award".'
+    }
+  ] as FestivalScheduleItem[],
+  registrationSteps: [
+    'Choose your preferred activities and workshops on the online portal.',
+    'Enter your school name and student ID badge number.',
+    'Receive your instant digital QR ticket on your smartphone.',
+    'Present your digital pass at the Welcome Desk to receive your festival lanyard and free sketchbook!'
+  ]
+};
+
+// Activity 3: True / False Questions
+export const TRUE_FALSE_QUESTIONS: TrueFalseQuestion[] = [
   {
-    id: 'g1',
-    context: 'Alex explaining the venue schedule to the organizing committee.',
-    sentencePrompt: 'We [_____] (set up) everything on Friday afternoon.',
-    subject: 'We',
-    baseVerb: 'set up',
-    correctAnswer: 'are setting up',
-    timeClue: 'on Friday afternoon',
-    explanation: 'Present continuous is used here because the team made a firm arrangement with a specific time and date already agreed upon.'
+    id: 'tf_1',
+    statement: 'The Youth Arts Festival requires paid entrance tickets for high school students.',
+    isTrue: false,
+    evidenceQuote: 'Free admission for all secondary school students with ID.',
+    justification: 'The website explicitly states that admission is 100% free for all secondary school students who show their ID.'
   },
   {
-    id: 'g2',
-    context: 'Jake coordinating the food delivery timetable with the coordinator.',
-    sentencePrompt: 'The food vendors [_____] (arrive) at 10 am on Saturday.',
-    subject: 'The food vendors',
-    baseVerb: 'arrive',
-    correctAnswer: 'are arriving',
-    timeClue: 'at 10 am on Saturday',
-    explanation: 'Plural subject (vendors) takes "are". The exact arrival time (10 am) confirms it is a fixed schedule, not an instant decision.'
+    id: 'tf_2',
+    statement: 'The festival features a live mural inspired by celebrated Brazilian street artists.',
+    isTrue: true,
+    evidenceQuote: 'Watch student artists collaborate on a vibrant 20-meter mural inspired by Eduardo Kobra and Os Gêmeos.',
+    justification: 'The Urban Canvas Wall program highlights live mural painting honouring Kobra and Os Gêmeos.'
   },
   {
-    id: 'g3',
-    context: 'Alex describing the visual arts gallery tasks.',
-    sentencePrompt: 'We [_____] (hang) banners and posters around the venue.',
-    subject: 'We',
-    baseVerb: 'hang',
-    correctAnswer: 'are hanging',
-    timeClue: 'this afternoon',
-    explanation: 'Formed with "are" + "-ing" for a coordinated ongoing plan for the upcoming festival.'
+    id: 'tf_3',
+    statement: 'Students do not need to register early for hands-on workshops like ceramics and graffiti.',
+    isTrue: false,
+    evidenceQuote: 'Early online registration is recommended for interactive workshops as materials and spots are limited!',
+    justification: 'Because materials and capacity are restricted, early online registration is strongly recommended to guarantee a spot.'
   },
   {
-    id: 'g4',
-    context: 'Alex confirming his afternoon meeting with the dance performers.',
-    sentencePrompt: 'I [_____] (meet) the dance group at 3 pm to confirm their rehearsal.',
-    subject: 'I',
-    baseVerb: 'meet',
-    correctAnswer: 'am meeting',
-    timeClue: 'at 3 pm',
-    explanation: 'Personal appointment locked into the diary. "I am meeting" shows a personal arrangement.'
+    id: 'tf_4',
+    statement: 'The dance masterclass focuses on Pilolo, an energetic urban dance style.',
+    isTrue: true,
+    evidenceQuote: 'High-energy West African Pilolo dance choreography followed by a friendly freestyle teen cipher.',
+    justification: 'The afternoon masterclass specifically teaches Pilolo rhythm, steps, and freestyle interaction.'
   },
   {
-    id: 'g5',
-    context: 'Alex discussing technical setup with Jake.',
-    sentencePrompt: 'The stage crew [_____] (come) at 2 pm to set up the lights and sound.',
-    subject: 'The stage crew',
-    baseVerb: 'come',
-    correctAnswer: 'is coming',
-    timeClue: 'at 2 pm',
-    explanation: 'Collective singular noun "the stage crew" takes "is coming". The time "at 2 pm" shows an arranged appointment.'
-  },
-  {
-    id: 'g6',
-    context: 'Jake summarizing the final checklist with Emily and Alex.',
-    sentencePrompt: 'We [_____] (finalise) the decorations on Friday before opening.',
-    subject: 'We',
-    baseVerb: 'finalise',
-    correctAnswer: 'are finalising',
-    timeClue: 'on Friday',
-    explanation: 'Coordinated group action scheduled on the calendar before Saturday.'
+    id: 'tf_5',
+    statement: 'Registered participants receive a digital QR ticket and can claim a free sketchbook.',
+    isTrue: true,
+    evidenceQuote: 'Receive your instant digital QR ticket... and receive your festival lanyard and free sketchbook!',
+    justification: 'Digital QR passes are sent instantly, and attendees receive physical lanyards and sketchbooks at check-in.'
   }
+];
+
+// Activity 5: Dialogue Completion & Role-Play
+export const DIALOGUE_FILL_OPTIONS = [
+  "I'll register for the festival now!",
+  "It looks amazing",
+  "Could you sign me up for the graffiti workshop too?",
+  "Sure, I'll do that right away",
+  "That sounds really exciting"
 ];
 
 export const FESTIVAL_DIALOGUE: DialogueLine[] = [
   {
     id: 1,
-    speaker: 'Alex',
-    text: 'Hey guys, the Cultural Festival is coming up fast! We are setting up everything on Friday afternoon. Emily, could you help me with the decorations?',
-    isPoliteRequest: true,
-    requestOrder: 1
+    speaker: 'Leo',
+    text: 'Hey Camila! Have you checked out the website for the Youth Arts Festival this weekend?'
   },
   {
     id: 2,
-    speaker: 'Emily',
-    text: 'Sure! How can I help?'
+    speaker: 'Camila',
+    text: 'No, not yet! I heard people talking about it, but I haven\'t seen the schedule. What are they organizing?'
   },
   {
     id: 3,
-    speaker: 'Alex',
-    text: "We're hanging banners and posters around the venue, and we're arranging the tables for the art exhibition."
+    speaker: 'Leo',
+    text: 'There is a massive live graffiti mural, ceramic clay sculpting, and a Pilolo street dance masterclass in the amphitheatre!'
   },
   {
     id: 4,
-    speaker: 'Emily',
-    text: "No problem. I'll help with that. Anything else?"
+    speaker: 'Camila',
+    text: 'That sounds really exciting! You know how much I love urban dance.',
+    isTargetSentence: true,
+    targetTag: 'Opinion'
   },
   {
     id: 5,
-    speaker: 'Jake',
-    text: "I am organising the food stalls, but I'm a bit overwhelmed. Can you give me a hand with that too, Emily?",
-    isPoliteRequest: true,
-    requestOrder: 2
+    speaker: 'Leo',
+    text: 'And look at the photos from last year on their homepage. The artwork looks amazing and colorful!'
   },
   {
     id: 6,
-    speaker: 'Emily',
-    text: 'Of course! What do you need?'
+    speaker: 'Leo',
+    text: 'The festival page warns that workshop spots fill up fast, even though admission is free.'
   },
   {
     id: 7,
-    speaker: 'Jake',
-    text: "The food vendors are arriving at 10 am on Saturday, and I'm checking their setup. Would you mind helping me with the list of food stalls?",
-    isPoliteRequest: true,
-    requestOrder: 3
+    speaker: 'Camila',
+    text: "In that case, I'll register for the festival now! Let me open the link on my phone.",
+    isTargetSentence: true,
+    targetTag: 'Instant Decision'
   },
   {
     id: 8,
-    speaker: 'Emily',
-    text: "Sure. I'd be happy to help with that too. We can go through it after we finish decorating."
+    speaker: 'Leo',
+    text: 'Awesome! Could you sign me up for the graffiti workshop too while you are on the portal?',
+    isTargetSentence: true,
+    targetTag: 'Polite Request'
   },
   {
     id: 9,
-    speaker: 'Alex',
-    text: 'Perfect! Oh, and I am meeting the dance group at 3 pm to confirm their rehearsal time. Can you help me out with that, Jake?',
-    isPoliteRequest: true,
-    requestOrder: 4
+    speaker: 'Camila',
+    text: "Sure, I'll do that right away! What is your student badge number?",
+    isTargetSentence: true,
+    targetTag: 'Instant Decision'
   },
   {
     id: 10,
-    speaker: 'Jake',
-    text: 'Absolutely! I’m here to help. Are they performing indoors or outdoors?'
-  },
-  {
-    id: 11,
-    speaker: 'Alex',
-    text: 'Indoors. The stage crew is coming at 2 pm to set up the lights and sound.'
-  },
-  {
-    id: 12,
-    speaker: 'Jake',
-    text: 'Got it. So, we are finalising the decorations on Friday, setting up food stalls on Saturday morning, and making sure performances go smoothly.'
-  },
-  {
-    id: 13,
-    speaker: 'Emily',
-    text: "That's right! We are working hard to get everything under control."
+    speaker: 'Leo',
+    text: 'It is SP-4092. Thanks a million! This festival seems to be the highlight of the term.'
   }
 ];
 
-export const TRUE_FALSE_QUESTIONS: TrueFalseQuestion[] = [
+// Language Lab: Systematic grammar exercises (Instant decisions vs plans vs opinions vs requests)
+export const GRAMMAR_EXERCISES: GrammarItem[] = [
   {
-    id: 'tf1',
-    statement: 'The organizing team is setting up everything on Friday afternoon.',
-    isTrue: true,
-    justification: 'Alex states explicitly: "We are setting up everything on Friday afternoon."',
-    evidenceQuote: 'Alex: "We are setting up everything on Friday afternoon."'
+    id: 'g_1',
+    prompt: 'A: "The festival tickets are going fast!" — B: "Oh! I ________ online right now so I don’t miss out."',
+    category: 'instant_decision',
+    options: ["'ll register", "am going to register", "registered", "registers"],
+    correctAnswer: "'ll register",
+    explanation: 'We use "will" (\'ll) for spontaneous decisions made at the moment of speaking (on the spot).',
+    ruleTag: 'Instant Decision (will)'
   },
   {
-    id: 'tf2',
-    statement: 'The food vendors are arriving on Sunday morning at 10 am.',
-    isTrue: false,
-    justification: 'The vendors are arriving on Saturday morning at 10 am, not Sunday.',
-    evidenceQuote: 'Jake: "The food vendors are arriving at 10 am on Saturday..."'
+    id: 'g_2',
+    prompt: 'We bought our brushes and reserved our passes last Monday. We ________ to attend the mural masterclass on Saturday.',
+    category: 'plan',
+    options: ['are going', "'ll go", 'will to go', 'goes'],
+    correctAnswer: 'are going',
+    explanation: 'We use "be going to" (or present continuous) for pre-arranged plans and decisions made beforehand.',
+    ruleTag: 'Pre-arranged Plan (be going to)'
   },
   {
-    id: 'tf3',
-    statement: 'Jake feels completely relaxed about managing all the food stalls alone.',
-    isTrue: false,
-    justification: 'Jake admits he is feeling overwhelmed and asks Emily for assistance.',
-    evidenceQuote: 'Jake: "I am organising the food stalls, but I’m a bit overwhelmed."'
+    id: 'g_3',
+    prompt: 'Listen to the guitar riff coming from Stage B! The new youth band ________ really talented.',
+    category: 'opinion',
+    options: ['sounds', 'appears', 'looks like', 'seems'],
+    correctAnswer: 'sounds',
+    explanation: 'We use "sounds" when our impression or opinion is based on auditory evidence (what we hear).',
+    ruleTag: 'Opinion / Perception (sounds)'
   },
   {
-    id: 'tf4',
-    statement: 'The dance group is performing indoors on the main stage.',
-    isTrue: true,
-    justification: 'When Jake asks if they perform indoors or outdoors, Alex confirms: "Indoors."',
-    evidenceQuote: 'Alex: "Indoors. The stage crew is coming at 2 pm to set up the lights and sound."'
+    id: 'g_4',
+    prompt: 'Look at those vibrant geometric colours on the canvas wall! That mural ________ incredible.',
+    category: 'opinion',
+    options: ['looks', 'sounds', 'hears', 'listens'],
+    correctAnswer: 'looks',
+    explanation: 'We use "looks" when an impression is based on visual observation (what we see with our eyes).',
+    ruleTag: 'Opinion / Perception (looks)'
   },
   {
-    id: 'tf5',
-    statement: 'Emily agrees to help both Alex with decorations and Jake with the stall list.',
-    isTrue: true,
-    justification: 'Emily responds warmly to both teammates, offering to help with decorations and then with the food list.',
-    evidenceQuote: 'Emily: "Sure! How can I help?" and "Sure. I’d be happy to help with that too."'
+    id: 'g_5',
+    prompt: 'Excuse me, ________ mind holding my portfolio while I grab my camera?',
+    category: 'polite_request',
+    options: ['would you', 'do you will', 'are you', 'could you will'],
+    correctAnswer: 'would you',
+    explanation: 'The formula "Would you mind + verb-ing...?" is a polite request used in collaborative settings.',
+    ruleTag: 'Polite Request (Would you mind...)'
+  },
+  {
+    id: 'g_6',
+    prompt: 'A: "I can’t reach the top of the exhibition board." — B: "No problem, I ________ a hand with that."',
+    category: 'instant_decision',
+    options: ["'ll give you", "give you", "am giving you", "have given you"],
+    correctAnswer: "'ll give you",
+    explanation: 'Offering immediate help on the spot is expressed using "will" (\'ll + base verb).',
+    ruleTag: 'Spontaneous Offer (will)'
   }
 ];
 
-export const POLITE_REQUESTS_ORDERING: PoliteRequestOrderingItem[] = [
+// Activity 6: The Arts Festival Challenge (Multiplayer Game Prompts from Teacher's Guide Page 34)
+export const ARTS_FESTIVAL_CHALLENGES: ChallengeScenario[] = [
   {
-    id: 'pr_1',
-    originalOrder: 1,
-    speaker: 'Alex (to Emily)',
-    quote: 'Emily, could you help me with the decorations?',
-    structure: 'Could you help me with...'
+    id: 'ch_1',
+    title: 'Lost Ticket Emergency',
+    situation: 'You are at the festival entrance, and your friend cannot find his / her ticket. What will you do?',
+    requiredFunction: 'Instant Decision (will)',
+    modelPrompt: 'Respond with a quick decision using "will" or "I\'ll..."',
+    exampleAnswers: [
+      "Don't worry! I'll speak to the student coordinator at the welcome desk.",
+      "Stay calm! I'll look through my bag and help you search for it.",
+      "I'll pull up my email confirmation and see if your barcode is there."
+    ],
+    grammarChunk: "I'll + verb (instant decision)",
+    badgeColor: 'border-amber-400 bg-amber-50 text-amber-900'
   },
   {
-    id: 'pr_2',
-    originalOrder: 2,
-    speaker: 'Jake (to Emily)',
-    quote: 'Can you give me a hand with that too, Emily?',
-    structure: 'Can you give me a hand with...'
+    id: 'ch_2',
+    title: 'New Sculpture Impression',
+    situation: 'You see a dramatic new sculpture made of recycled scrap metal at the festival. Give your opinion about it!',
+    requiredFunction: 'Give an Opinion (looks / sounds / seems)',
+    modelPrompt: 'Express an opinion using "looks", "seems to be", or "appears to be".',
+    exampleAnswers: [
+      "It looks super modern and seems to express the impact of city life.",
+      "That sculpture appears to be made entirely from repurposed bicycle parts!",
+      "It looks fascinating and seems to carry a strong ecological message."
+    ],
+    grammarChunk: "It looks... / It seems to be...",
+    badgeColor: 'border-blue-400 bg-blue-50 text-blue-900'
   },
   {
-    id: 'pr_3',
-    originalOrder: 3,
-    speaker: 'Jake (to Emily)',
-    quote: 'Would you mind helping me with the list of food stalls?',
-    structure: 'Would you mind helping me with...'
+    id: 'ch_3',
+    title: 'Song Request to the Band',
+    situation: 'You want to ask a live indie band if they could play your favourite song during the intermission. Make a polite request.',
+    requiredFunction: 'Polite Request (Could you / Would you mind)',
+    modelPrompt: 'Formulate a polite request with "Could you...?" or "Would you mind...?"',
+    exampleAnswers: [
+      "Excuse me, could you please play your acoustic track next?",
+      "Would you mind playing our favourite song before your set ends?",
+      "Could you dedicate your next song to our school group, please?"
+    ],
+    grammarChunk: "Could you please...? / Would you mind playing...?",
+    badgeColor: 'border-purple-400 bg-purple-50 text-purple-900'
   },
   {
-    id: 'pr_4',
-    originalOrder: 4,
-    speaker: 'Alex (to Jake)',
-    quote: 'Can you help me out with that, Jake?',
-    structure: 'Can you help me out with...'
+    id: 'ch_4',
+    title: 'Workshop Recommendation',
+    situation: 'Your friend is unsure whether to join the pottery workshop or the graffiti mural. Give your opinion and advice.',
+    requiredFunction: 'Give an Opinion (looks / sounds / seems)',
+    modelPrompt: 'Use opinion verbs ("sounds", "looks", "seems to be") to help your friend decide.',
+    exampleAnswers: [
+      "The graffiti workshop sounds more exciting because you can paint freely on the giant wall!",
+      "The pottery studio looks really relaxing and you get to take your creation home.",
+      "The dance masterclass seems to be full of energy, so I think you'll love it."
+    ],
+    grammarChunk: "It sounds / looks like the best option because...",
+    badgeColor: 'border-emerald-400 bg-emerald-50 text-emerald-900'
+  },
+  {
+    id: 'ch_5',
+    title: 'Sudden Hunger Attack',
+    situation: 'You are walking past the festival food trucks and suddenly feel hungry. Make an instant decision about what to eat.',
+    requiredFunction: 'Instant Decision (will)',
+    modelPrompt: 'Use "will" (\'ll) to decide on food right on the spot.',
+    exampleAnswers: [
+      "I'm starving! I'll grab an açaí bowl and a warm pastel right now.",
+      "The smell of grilled skewers is irresistible. I'll get in line over there!",
+      "I'll buy a fresh passionfruit juice and two cheese breads for us."
+    ],
+    grammarChunk: "I'll buy / get / order...",
+    badgeColor: 'border-orange-400 bg-orange-50 text-orange-900'
+  },
+  {
+    id: 'ch_6',
+    title: 'Celebrity Artist Line',
+    situation: 'A famous street artist is taking selfies with fans, but the line has over 40 people. What will you do?',
+    requiredFunction: 'Instant Decision (will)',
+    modelPrompt: 'Make a spontaneous choice on the spot using "will".',
+    exampleAnswers: [
+      "I don't mind waiting! I'll stay in line with you so we can get an autograph.",
+      "The queue is huge! I'll visit the photo gallery first and come back later.",
+      "I'll hold our place in line while you go grab some cold drinks."
+    ],
+    grammarChunk: "I'll wait / I'll return later / I'll hold our spot...",
+    badgeColor: 'border-pink-400 bg-pink-50 text-pink-900'
+  },
+  {
+    id: 'ch_7',
+    title: 'Unfamiliar Dance Style',
+    situation: 'A dancer is performing a style of street dance (Pilolo) you have never seen before. Share your thoughts with a friend.',
+    requiredFunction: 'Give an Opinion (looks / sounds / seems)',
+    modelPrompt: 'Share sensory impressions using "looks", "seems to be", or "appears to be".',
+    exampleAnswers: [
+      "Her footwork appears to be incredibly complex and fast-paced!",
+      "This performance looks full of joy and cultural heritage.",
+      "The rhythm seems to be from Ghana; it sounds energetic and infectious!"
+    ],
+    grammarChunk: "Her style looks... / The choreography seems to be...",
+    badgeColor: 'border-cyan-400 bg-cyan-50 text-cyan-900'
+  },
+  {
+    id: 'ch_8',
+    title: 'Ear-Splitting Speakers',
+    situation: 'The sound system at the side stage is extremely loud and vibrating uncomfortably. Make a polite request to the sound engineer.',
+    requiredFunction: 'Polite Request (Could you / Would you mind)',
+    modelPrompt: 'Politely ask the technician using "Would you mind...?" or "Could you...?"',
+    exampleAnswers: [
+      "Excuse me, would you mind lowering the master volume a little bit?",
+      "Could you please check the speaker balance? The treble is very piercing.",
+      "Would you mind pointing that monitor away from the front row?"
+    ],
+    grammarChunk: "Would you mind lowering...? / Could you adjust...?",
+    badgeColor: 'border-red-400 bg-red-50 text-red-900'
+  },
+  {
+    id: 'ch_9',
+    title: 'Photo in Front of the Mural',
+    situation: 'You and your friends want a group photo in front of the 20-meter Kobra-style mural. Make a polite request to a passerby.',
+    requiredFunction: 'Polite Request (Could you / Would you mind)',
+    modelPrompt: 'Ask someone politely to take your picture using "Could you...?"',
+    exampleAnswers: [
+      "Hi there! Could you take a quick photo of our group in front of the mural?",
+      "Excuse me, would you mind snapping a picture of us with this camera?",
+      "Could you please take one photo horizontally so the whole artwork shows?"
+    ],
+    grammarChunk: "Could you take a photo...? / Would you mind snapping...?",
+    badgeColor: 'border-teal-400 bg-teal-50 text-teal-900'
   }
 ];
 
-export const ROLE_PLAY_SCENARIOS: RolePlayScenario[] = [
+// Activity 7 / SEL: Brazilian Street Artists spotlight (Teacher's Guide Page 34)
+export const BRAZILIAN_STREET_ARTISTS: StreetArtistProfile[] = [
   {
-    id: 'sc1',
-    title: 'The Tangled Stage Cables',
-    context: 'You are backstage 20 minutes before sound check. The microphone cords and speaker wires are completely tangled.',
-    targetTask: 'Ask a teammate to hold the cables while you untangle the jacks.',
-    suggestedPrompt: 'Would you mind holding these cords while I sort the audio plugs?',
-    suggestedResponse: 'Sure! How can I help? Hand me the microphone lines.',
-    difficulty: 'Bronze'
+    id: 'kobra',
+    name: 'Eduardo Kobra',
+    city: 'São Paulo, Brazil',
+    style: 'Kaleidoscopic realism, bright geometric patterns, photorealistic portraits',
+    signatureTheme: 'Peace, tolerance, memory, human rights and environmental conservation',
+    famousArtwork: 'Etnias (The Peace Mural, Rio Olympics 2016)',
+    quote: '"My art is for everyone on the street. It breathes color into the grey concrete."',
+    reflectionQuestion: 'How does transforming a public wall into vibrant art change how people feel about their neighbourhood?'
   },
   {
-    id: 'sc2',
-    title: 'Heavy Exhibition Display Boards',
-    context: 'The wooden partition screens for the photography display just arrived by the loading dock. They are too heavy for one person.',
-    targetTask: 'Ask a peer to carry the second side of the screen.',
-    suggestedPrompt: 'Could you give me a hand carrying this display board into Room 3?',
-    suggestedResponse: 'No problem at all! Let me grab the other side. Where are we putting it?',
-    difficulty: 'Bronze'
+    id: 'osgemeos',
+    name: 'Os Gêmeos (Gustavo & Otávio Pandolfo)',
+    city: 'São Paulo, Brazil',
+    style: 'Yellow-skinned characters, dreamlike surrealism, Brazilian folklore and hip-hop roots',
+    signatureTheme: 'Dreams, social commentary, imagination and brotherhood',
+    famousArtwork: 'The Giant in Vancouver & São Paulo Urban Murals',
+    quote: '"We paint the world we see in our dreams so that waking life feels less lonely."',
+    reflectionQuestion: 'What emotions do the whimsical yellow characters evoke when you look at them?'
   },
   {
-    id: 'sc3',
-    title: 'Double-Booking Rehearsal Space',
-    context: 'Both the acoustic guitarist and the hip-hop dancers want to rehearse in the auditorium at 3:00 PM.',
-    targetTask: 'Politely negotiate a shared schedule or ask a leader for clarification.',
-    suggestedPrompt: 'Would you mind checking if the music room is free so we can split the rehearsal times?',
-    suggestedResponse: 'Sure. I would be happy to check with the coordinator right now.',
-    difficulty: 'Silver'
+    id: 'cranio',
+    name: 'Cranio (Fabio de Oliveira Parnaiba)',
+    city: 'São Paulo, Brazil',
+    style: 'Blue indigenous characters in contemporary urban situations',
+    signatureTheme: 'Preserving indigenous culture, consumerism critique and nature protection',
+    famousArtwork: 'Blue Forest Keepers in Urban Jungles',
+    quote: '"I use my art to provoke reflection on what we value versus what nature gives us."',
+    reflectionQuestion: 'How can street art help us reflect critically on modern consumer habits?'
   },
   {
-    id: 'sc4',
-    title: 'Lost Welcome Desk Clipboard',
-    context: 'The guest registration sheet has gone missing right as the first visitors arrive.',
-    targetTask: 'Ask a classmate to check the staff room while you greet the guests.',
-    suggestedPrompt: 'Could you help me find the attendee roster in the staff room?',
-    suggestedResponse: 'Absolutely! I am on it. Keep greeting the people at the door.',
-    difficulty: 'Silver'
-  },
-  {
-    id: 'sc5',
-    title: 'Sudden Outdoor Rain Threat',
-    context: 'Dark clouds gather over the courtyard craft tables with fragile watercolor paintings outside.',
-    targetTask: 'Call for immediate coordinated help to move displays indoors.',
-    suggestedPrompt: 'Would you mind helping us carry the craft tables into the covered hallway before it rains?',
-    suggestedResponse: 'Of course! What do you need first? I will take the paper artworks!',
-    difficulty: 'Gold'
-  },
-  {
-    id: 'sc6',
-    title: 'Vendor Dietary Allergen Signage',
-    context: 'A food vendor forgot to list gluten and nut allergens on their artisanal dessert menu.',
-    targetTask: 'Ask a peer to help write clear handwritten warning cards.',
-    suggestedPrompt: 'Could you help me write new ingredient signs for the bakery booth?',
-    suggestedResponse: 'No problem. I will grab some cards and thick markers right away.',
-    difficulty: 'Gold'
+    id: 'koubik',
+    name: 'Kelvin Koubik',
+    city: 'Porto Alegre, Brazil',
+    style: 'Large-scale botanical & biological murals, native fauna and flora',
+    signatureTheme: 'Biodiversity, water preservation and Brazilian biomes',
+    famousArtwork: 'Rivers & Roots of Rio Grande do Sul',
+    quote: '"Painting nature in urban centers reminds citizens of the living world beneath their feet."',
+    reflectionQuestion: 'If you were to paint a mural for your school, what ecological message would you choose?'
   }
-];
-
-export const POLITE_REQUEST_FORMULAS = [
-  {
-    pattern: 'Could you help me with + [Noun Phrase]?',
-    example: 'Could you help me with the decorations?',
-    notes: 'Very common, polite, and neutral. Perfect for everyday classroom and teamwork tasks.'
-  },
-  {
-    pattern: 'Would you mind + [Verb-ING]...?',
-    example: 'Would you mind helping me with the list of food stalls?',
-    notes: 'Crucial grammar rule: "mind" requires a gerund (-ing). Extremely polite and considerate.'
-  },
-  {
-    pattern: 'Can you give me a hand with + [Noun Phrase]?',
-    example: 'Can you give me a hand with the sound speakers?',
-    notes: 'Natural, idiomatic expression favored by teens and peers in collaborative settings.'
-  },
-  {
-    pattern: 'Could you help me out with + [Noun Phrase]?',
-    example: 'Could you help me out with the dance group?',
-    notes: 'Phrasal verb "help out" expresses friendly mutual assistance when someone has high workload.'
-  }
-];
-
-export const POLITE_ACCEPTANCE_PHRASES = [
-  { phrase: 'Sure! How can I help?', tone: 'Enthusiastic & prompt' },
-  { phrase: "No problem. I'll help with that. Anything else?", tone: 'Generous & supportive' },
-  { phrase: 'Of course! What do you need?', tone: 'Warm & dependable' },
-  { phrase: "Sure. I'd be happy to help with that too.", tone: 'Polite & accommodating' },
-  { phrase: 'Absolutely! I’m here to help.', tone: 'Team-spirited & energetic' }
-];
-
-export const SEL_STRATEGIES: SelStrategy[] = [
-  {
-    id: 'sel_breathing',
-    title: 'The 4-4-4 Box Breath',
-    subtitle: 'Calming the Physical Adrenaline Spike',
-    description: 'Before taking the microphone, stepping on stage, or speaking up in front of classmates, heartbeat accelerates. Slow down the nervous system.',
-    actionableStep: 'Inhale through nose for 4 counts, hold for 4 counts, exhale through mouth for 4 counts. Repeat 3 times.',
-    quote: 'Anxiety is just energy without a rhythm.'
-  },
-  {
-    id: 'sel_ask_early',
-    title: 'Admitting "I’m Overwhelmed"',
-    subtitle: 'Asking for Help Before You Drown',
-    description: 'Notice how Jake said: "I am organising the food stalls, but I’m a bit overwhelmed." He did not pretend everything was fine until it failed.',
-    actionableStep: 'Use the phrase: "I’m feeling a bit overwhelmed with [X]. Could you give me a hand?" It builds trust, not weakness.',
-    quote: 'Asking for help is not giving up; it is refusing to give up.'
-  },
-  {
-    id: 'sel_reframing',
-    title: 'The Imperfection Grace',
-    subtitle: 'Reframing Mistakes as Live Energy',
-    description: 'Teen performers fear forgetting a word or dropping a prop. But audiences connect with genuine humans, not rehearsed robots.',
-    actionableStep: 'If you slip up, pause, breathe, smile, and say "Let me try that again." Your courage earns instant respect.',
-    quote: 'Flaws make live art memorable.'
-  },
-  {
-    id: 'sel_partner_anchoring',
-    title: 'The Wingman Anchor',
-    subtitle: 'Peer Solidarity in the Wings',
-    description: 'Standing alone makes fear feel 10x larger. Having a trusted friend making eye contact grounds your confidence immediately.',
-    actionableStep: 'Find one person in the front row or in your league. Rehearse the first sentence together before you begin.',
-    quote: 'We don’t perform alone; we lift each other up.'
-  }
-];
-
-export const MINGLE_SAMPLE_PLANS = [
-  { student: 'Lucas', plan: 'I am playing basketball with my school team on Saturday morning.', time: 'Sat 09:00' },
-  { student: 'Beatriz', plan: 'I am visiting my grandmother in Campinas this weekend.', time: 'Sat 14:00' },
-  { student: 'Gabriel', plan: 'I am studying for the math olympiad with my friend Thiago.', time: 'Sun 10:00' },
-  { student: 'Mariana', plan: 'I am baking brigadeiros for our charity stand on Sunday afternoon.', time: 'Sun 15:30' },
-  { student: 'Enzo', plan: 'I am testing the sound speakers in the amphitheater on Friday at 4 pm.', time: 'Fri 16:00' }
 ];

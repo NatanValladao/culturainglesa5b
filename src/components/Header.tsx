@@ -29,11 +29,12 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const navItems: { id: ActiveTab; label: string; number: string }[] = [
-    { id: 'cards', label: 'Event Cards', number: '1' },
-    { id: 'grammar', label: 'Arrangements', number: '2' },
-    { id: 'listening', label: 'Audio Lab', number: '3' },
-    { id: 'roleplay', label: 'Polite Requests', number: '4' },
-    { id: 'sel', label: 'Mind & Stage', number: '5' }
+    { id: 'noughts', label: 'Noughts & Crosses', number: '1' },
+    { id: 'website', label: 'Festival Hub', number: '2' },
+    { id: 'grammar', label: 'Instant Decisions', number: '3' },
+    { id: 'dialogue', label: 'Festival Chat', number: '4' },
+    { id: 'challenge', label: 'Challenge Game', number: '5' },
+    { id: 'sel', label: 'Street Art & SEL', number: '6' }
   ];
 
   return (
@@ -41,16 +42,21 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand / Kicker */}
         <div className="flex items-center gap-3">
-          <div className="bg-blue-600 text-white px-2.5 py-1 rounded-lg font-bold text-xs tracking-wider">
-            5B
+          <div className="bg-blue-600 text-white px-2.5 py-1 rounded-lg font-bold text-xs tracking-wider shadow-2xs">
+            7A
           </div>
-          <span className="font-semibold text-slate-800 text-sm hidden sm:inline">
-            Would you mind helping me?
-          </span>
+          <div className="hidden sm:block">
+            <span className="font-semibold text-slate-800 text-sm block leading-tight">
+              I’ll register for the festival now!
+            </span>
+            <span className="text-[11px] text-slate-500 font-medium">
+              Teen Legacy 1 · Journey 2
+            </span>
+          </div>
         </div>
 
-        {/* Minimal Navigation Tabs */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+        {/* Desktop Navigation Tabs */}
+        <nav className="hidden lg:flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
           {navItems.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -60,13 +66,13 @@ export const Header: React.FC<HeaderProps> = ({
                   sound.playTap();
                   setActiveTab(tab.id);
                 }}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   isActive
                     ? 'bg-white text-slate-900 shadow-sm font-semibold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
-                <span className="mr-1.5 text-slate-400 font-mono text-[11px]">{tab.number}</span>
+                <span className="mr-1 text-slate-400 font-mono text-[11px]">{tab.number}</span>
                 {tab.label}
               </button>
             );
@@ -77,10 +83,10 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2">
           {/* League Score Badges */}
           <div className="flex items-center gap-1.5 text-xs font-medium">
-            <span className="bg-rose-50 text-rose-700 border border-rose-200/80 px-2.5 py-1 rounded-lg font-semibold">
+            <span className="bg-rose-50 text-rose-700 border border-rose-200 px-2.5 py-1 rounded-lg font-bold">
               Team A: {leagueScores.leagueA}
             </span>
-            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2.5 py-1 rounded-lg font-semibold">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-lg font-bold">
               Team B: {leagueScores.leagueB}
             </span>
           </div>
@@ -108,13 +114,13 @@ export const Header: React.FC<HeaderProps> = ({
                 : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
             }`}
           >
-            {isBoardMode ? 'Board View: ON' : 'Board View'}
+            {isBoardMode ? 'Board: ON' : 'Board View'}
           </button>
         </div>
       </div>
 
-      {/* Mobile nav bar */}
-      <div className="flex md:hidden overflow-x-auto gap-1.5 pt-2 pb-1 scrollbar-none">
+      {/* Mobile & Tablet nav bar */}
+      <div className="flex lg:hidden overflow-x-auto gap-1.5 pt-2 pb-1 scrollbar-none">
         {navItems.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -130,6 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'bg-slate-100 text-slate-600'
               }`}
             >
+              <span className="mr-1 opacity-70 font-mono text-[10px]">{tab.number}</span>
               {tab.label}
             </button>
           );
